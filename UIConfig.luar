@@ -1,0 +1,24 @@
+UIConfig = {
+    SCRIPT_DIMENSION_WIDTH = 1920,
+    colors = {
+        green = 0xFF709E00;
+        blue = 0xFF1F91C2;
+        orange = 0xFFCF5200;
+        red = 0xFFBC1000;
+        purple = 0xFF6C0083;
+        --
+        green_dark = 0xFF577B00;
+        blue_dark = 0xFF187197;
+        orange_dark = 0xFFA14000;
+        red_dark = 0xFF920D00;
+        purple_dark = 0xFF540066;
+        --
+        white = 0xFFF4F6F6;
+        black = 0xFF2A2A27;
+        gray = 0xFF464742;
+        gray_light = 0xFF6D6E6A;
+        --
+        transparent = 0x00FFFFFF;
+    },
+
+}

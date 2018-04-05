@@ -1,0 +1,45 @@
+{
+  "OCRPath" : "/mnt/shared/Other/AI/OCRImages",
+  "RESOURCES" : {
+    "BOOSTPOINTS" : {
+      "type" : "gameresource",
+      "NAME" : "BOOSTPOINTS",
+      "region" : {
+        "y" : 34,
+        "h" : 40,
+        "type" : "region",
+        "w" : 85,
+        "x" : 1436
+      },
+      "validInterval" : 1500,
+      "VALUE" : 0,
+      "lastCheck" : -1875152
+    },
+    "ENERGY" : {
+      "type" : "gameresource",
+      "NAME" : "ENERGY",
+      "region" : {
+        "y" : 36,
+        "h" : 32,
+        "type" : "region",
+        "w" : 154,
+        "x" : 650
+      },
+      "lastCheck" : -1878653,
+      "validInterval" : 5000,
+      "VALUE" : 0,
+      "separator" : {
+        "fileName" : "slash.pttrn.png",
+        "type" : "pattern"
+      }
+    }
+  },
+  "scriptPath" : "/mnt/shared/Other/AI/",
+  "imagePath" : "/mnt/shared/Other/AI/images",
+  "type" : "gameagent",
+  "gameActions" : {
+    "WaitPattern" : "waitpattern",
+    "Wait" : "wait",
+    "Click" : "click"
+  }
+}
