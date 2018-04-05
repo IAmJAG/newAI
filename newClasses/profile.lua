@@ -21,9 +21,12 @@ end
 
 function profile:getNextRunableMode(mod)
 	local mod = self.Modes:getNext(mod)
+	local last = false
 	while not mod:canRun() do
-		mod = self.Modes:getNext()
-		if mod == nil then break end
+		mod = self.Modes:getNext(mod)
+		if mod == nil then 
+			break 
+		end
 	end
 	return mod
 end
@@ -38,5 +41,5 @@ while nextMode do
 		task = nextMode:getTask(task:execute(profile))
 	end
 	
-	nextMode = profiles:getNextRunableMode(nextMode)
+	nextMode, isLast = profiles:getNextRunableMode(nextMode)
 end

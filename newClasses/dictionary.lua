@@ -1,5 +1,5 @@
 local dictionary = {}
-dictionary.__index = dictionary
+dictionary.__index = dictionary 
 
 local ogu 	= require('gameUtility')
 local o  		= nil
@@ -45,13 +45,14 @@ end
 
 function dictionary:getNext(obj)
 	obj = obj or nil
+	local ret = nil
 	for i, key in pairs(keys)
 		if self[keys[i]] == obj then
-			obj = self[keys[i+]]
+			ret = self[keys[i+]]
 			break
 		end
 	end
-	return obj
+	return ret
 end
 
 function dictionary:add(key, obj)
