@@ -19,19 +19,18 @@ function profile.create()
 	return prof
 end
 
-function profile:getNextMode()
-	currentMode = currentMode or mods
+function profile:getNextRunableMode(mod)
+	local mod = self.Modes:getNext(mod)
+	while not mod:canRun() do
+		mod = self.Modes:getNext()
+		if mod == nil then break end
+	end
+	return mod
 end
 
 return profile
 
-local nextMode = profile.Modes:getFirst()
-while nextMode:isJumpAllowed() do	
-	nextMode:save()
-	nextMode = profiles.Modes:getNext()
-end
-
-local recommendEnd
+local nextMode = profile:getNextRunableMode()
 while nextMode do	
 	local key = nextMode:getEntryPoint()
 	local task = nextMode:getTask(key)
@@ -39,8 +38,5 @@ while nextMode do
 		task = nextMode:getTask(task:execute(profile))
 	end
 	
-	while nextMode:isJumpAllowed() do	
-		nextMode:save()
-		nextMode = profiles.Modes:getNext()
-	end
+	nextMode = profiles:getNextRunableMode(nextMode)
 end

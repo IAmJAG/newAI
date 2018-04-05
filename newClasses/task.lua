@@ -21,7 +21,12 @@ function taskMeta:execute(agent)
 		trace('assuming command is click')
 		agent[self.command] = 'click'
 	end
-	return agent[self.command](agent, self.pslr, self:timeOut)
+	local result = agent[self.command](agent, self.pslr, self:timeOut)
+	if result then
+		return self.RIGHT
+	else
+		return self.LEFT
+	end
 end
 
 return action

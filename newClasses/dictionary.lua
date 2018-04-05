@@ -5,7 +5,8 @@ local ogu 	= require('gameUtility')
 local o  		= nil
 local keys	= {}
 
-function dictionary.create()
+function dictionary.create(typ)
+	typ = typ or nil
 	local dict = {}
 	setmetatable(dict, dictionary)
 	
@@ -14,6 +15,11 @@ function dictionary.create()
 	dict.ContentType	= ''
 	
 	dict = ogu:addType('dictionary', dict)
+	
+	if typ then
+		dict:intialize(typ)
+	end
+	
 	return dict
 end
 
@@ -38,7 +44,7 @@ function dictionary:getFirst()
 end
 
 function dictionary:getNext(obj)
-	local obj = nil
+	obj = obj or nil
 	for i, key in pairs(keys)
 		if self[keys[i]] == obj then
 			obj = self[keys[i+]]
