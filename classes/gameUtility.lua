@@ -2,7 +2,7 @@ local gameUtility = {}
 gameUtility.__index = gameUtility
 
 local json 						= require('json')
-local minifyJSONSave 	= true
+local minifyJSONSave 	= false
 
 function gameUtility.create()
 	local gu = {}
@@ -37,7 +37,7 @@ function gameUtility.create()
 	-- creating statusBar
 	local statusBar = UI:new(style)		
 	statusBar:add("status")
-	statusBar.status.position = "bottom=15%|left=10"
+	statusBar.status.position = "bottom=5%|left=5"
 
 	statusBar.status.width = "99%"
 	statusBar.status.height = "90%"
@@ -51,6 +51,26 @@ function gameUtility.create()
 	
 	gu = gu:addType('gameUtility', gu)
 	return gu
+end
+
+function gameUtility:patternToLocation(pttrn)
+	local rgn = Region(pttrn.x, pttrn.y, pttrn.w, pttrn.h)
+	local loc = nil
+	if rgn:exists(pttrn.fileName) then
+		trace('Pattern convert')
+		local match = rgn:getLastMatch()
+		local locX = tonumber(string.format('%d', match:getX() + (match:getW()/2)))
+		local locY = tonumber(string.format('%d', match:getY() + (match:getH()/2)))
+		trace(string.format('Location X = %d, Location Y = %d', locX, locY))
+		loc = require('location').create()
+		loc:initialize(locX, locY)
+		trace(loc:getX())
+		trace(loc:getY())
+	else
+		Debug('Pattern must be present in the screen to convert pattern to location')
+	end
+	
+	return loc
 end
 
 function gameUtility:addType(name, o)
@@ -81,43 +101,69 @@ function gameUtility:encodeJSON(obj, minify)
 	return json.encode(obj, minify)
 end
 
-function gameUtility:decodeJSON(jsonStr, obj)
+function gameUtility:decodeJSON(jsonStr, typ)
 	local dta = json.decode(jsonStr)
-	obj = obj or {}	
-	return self:copyObject(dta, obj)
+	typ = typ or 'object'
+	trace(typ .. ' please delete me')
+	return self:convert(dta, typ)
 end
 
-function gameUtility:copyObject(dta, obj)
-	if obj == nil then
-		trace('object empty')
-		return dta
+function gameUtility:convertToType(dta, typ)
+	local obj = {}
+	if typ ~= nil then
+		trace('Require type ' .. typ)
+		obj = require(typ).create()
+		trace('Object created of type ' .. obj.Type)
 	end
 	
-	local typ = self:typeOf(dta)
-	if typ == 'array' then 
-		for k, o in pairs(dta) do
-			obj[k] = self:copyObject(o, obj[k])
-		end
-	elseif typ == 'object' then
-		for k, o in ipairs(dta) do
-			trace(k)
-			obj[k] = self:copyObject(o, obj[k])
-		end
-	else
-		if typeOf(dta)=='string' 
-			or typeOf(dta)=='number' 
-			or typeOf(dta)=='boolean' then
-			obj = dta
-		else
-			for k, o in pairs(dta) do
-				trace(k)
-				obj[k] = self:copyObject(o, obj[k])
-			end
-		end
-	end	
+	for k, o in pairs(dta) do
+		typ = self:typeOf(dta[k])
+		trace('Converting type ' .. typ)
+		obj[k] = self:convert(o, typ)
+	end
 	
 	return obj
 end
+
+function gameUtility:convertToObject(dta)
+	local obj = {}	
+	for k, o in ipairs(dta) do		
+		obj[k] = self:convert(o, self:typeOf(obj[k]))
+	end	
+	return obj
+end
+
+function gameUtility:convertToArray(dta)
+	local obj = {}	
+	for k, o in pairs(dta) do		
+		obj[k] = self:convert(o, self:typeOf(obj[k]))
+	end	
+	return obj
+end
+
+function gameUtility:convert(o, typ)
+	local obj 
+	if typ == 'string' then
+		obj = o
+	elseif typ == 'number' then
+		obj = o
+	elseif typ == 'boolean' then
+		obj = o
+	elseif typ == 'array' then
+		obj = self:convertToArray(o)
+	elseif typ == 'object' then
+		obj = self:convertToObject(o)
+	else
+		if o['Type'] ~= nil then
+			obj = self:convertToType(o, o.Type)
+		else
+			Debug('Type not recognize ' .. typ)
+			obj = o
+		end
+	end
+	trace('Convert type ' .. typ)
+	return obj
+end	
 
 function gameUtility:saveJSON(j, filePath)
 	local strJSON
@@ -126,14 +172,15 @@ function gameUtility:saveJSON(j, filePath)
 	else
 		strJSON = self:encodeJSON(j, minifyJSONSave)
 	end
+	trace('writting to ' .. filePath)
 	local fp = io.open(filePath, "w")
 	fp:write(strJSON)
 	fp:close()
 end
 
-function gameUtility:readJSON(filePath, obj)
+function gameUtility:readJSON(filePath, typ)
 	local strJSON = self:readFile(filePath)
-	obj = self:decodeJSON(strJSON, obj)
+	local obj = self:decodeJSON(strJSON, typ)
 	return obj
 end
 
@@ -220,8 +267,8 @@ end
 function gameUtility:typeOf(o)
 	local typ = typeOf(o)
 	if typ=='table' then
-		if o['type'] ~= nil then
-			typ = o.type
+		if o['Type'] ~= nil then
+			typ = o.Type
 		else
 			if #o >= 0 then
 				typ = 'array'
@@ -261,6 +308,5 @@ function gameUtility:scanDirectory(dir, ext)
   end
   return lines
 end
-
 
 return gameUtility

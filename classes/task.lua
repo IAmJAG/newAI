@@ -1,17 +1,19 @@
 local oGU	= require('gameutility')
-
 local taskMeta={}
 taskMeta.__index = taskMeta		
 		
-function action.create()
+function taskMeta.create(cmd)
 	local task={}
 	setmetatable(task, taskMeta)
 	task.LEFT			=	nil
 	task.RIGHT		= nil
-	task.command	= 'click'
+	task.command	= cmd or 'click'
+	task.paramType= ''
 	task.pslr			= nil
 	task.region		= nil
 	task.timeOut  = nil
+	
+	task = oGU:addType('task', task)
 	return task
 end
 
@@ -21,7 +23,8 @@ function taskMeta:execute(agent)
 		trace('assuming command is click')
 		agent[self.command] = 'click'
 	end
-	local result = agent[self.command](agent, self.pslr, self:timeOut)
+	trace('Executing ' .. self.command)
+	local result = agent[self.command](agent, self.pslr, self.timeOut)
 	if result then
 		return self.RIGHT
 	else
@@ -29,4 +32,4 @@ function taskMeta:execute(agent)
 	end
 end
 
-return action
+return taskMeta

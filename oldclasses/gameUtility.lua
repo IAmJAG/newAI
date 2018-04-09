@@ -81,63 +81,43 @@ function gameUtility:encodeJSON(obj, minify)
 	return json.encode(obj, minify)
 end
 
-function gameUtility:decodeJSON(jsonStr, typ)
+function gameUtility:decodeJSON(jsonStr, obj)
 	local dta = json.decode(jsonStr)
-	typ = typ or 'object'
-	return self:convert(dta, typ)
+	obj = obj or {}	
+	return self:copyObject(dta, obj)
 end
 
-function gameUtility:convertToType(dta, typ)
-	local obj = {}
-	if typ ~= nil then
-		obj = require(typ)
+function gameUtility:copyObject(dta, obj)
+	if obj == nil then
+		trace('object empty')
+		return dta
 	end
 	
-	for k, o in ipairs(dta) do		
-		obj[k] = self:convert(o, self:typeOf(obj[k]))
-	end
-	
-	return obj
-end
-
-function gameUtility:convertToObject(dta)
-	local obj = {}	
-	for k, o in ipairs(dta) do		
-		obj[k] = self:convert(o, self:typeOf(obj[k]))
-	end	
-	return obj
-end
-
-function gameUtility:convertToArray(dta)
-	local obj = {}	
-	for k, o in pairs(dta) do		
-		obj[k] = self:convert(o, self:typeOf(obj[k]))
-	end	
-	return obj
-end
-
-function gameUtility:convert(o, typ)
-	local obj 
-	if typ == 'string' then
-		obj = o
-	elseif typ == 'number' then
-		obj = o
-	elseif typ == 'boolean' then
-		obj = o
-	elseif typ == 'array' then
-		obj = self:convertToArray(o)
-	elseif typ == 'object' then
-		obj = self:convertToObject(o)
-	else
-		if o['Type'] ~= nil then
-			obj = self:convertToType(o, o.Type)
-		else
-			Debug('Type not recognize ' .. typ)
-			obj = o
+	local typ = self:typeOf(dta)
+	if typ == 'array' then 
+		for k, o in pairs(dta) do
+			obj[k] = self:copyObject(o, obj[k])
 		end
-	end
+	elseif typ == 'object' then
+		for k, o in ipairs(dta) do
+			trace(k)
+			obj[k] = self:copyObject(o, obj[k])
+		end
+	else
+		if typeOf(dta)=='string' 
+			or typeOf(dta)=='number' 
+			or typeOf(dta)=='boolean' then
+			obj = dta
+		else
+			for k, o in pairs(dta) do
+				trace(k)
+				obj[k] = self:copyObject(o, obj[k])
+			end
+		end
+	end	
+	
 	return obj
-end	
+end
 
 function gameUtility:saveJSON(j, filePath)
 	local strJSON
@@ -240,8 +220,8 @@ end
 function gameUtility:typeOf(o)
 	local typ = typeOf(o)
 	if typ=='table' then
-		if o['Type'] ~= nil then
-			typ = o.Type
+		if o['type'] ~= nil then
+			typ = o.type
 		else
 			if #o >= 0 then
 				typ = 'array'
@@ -281,5 +261,6 @@ function gameUtility:scanDirectory(dir, ext)
   end
   return lines
 end
+
 
 return gameUtility

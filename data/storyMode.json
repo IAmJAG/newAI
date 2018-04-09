@@ -1,0 +1,104 @@
+{
+  "patterns" : {
+    "Type" : "dictionary",
+    "home.pat.png" : {
+      "Type" : "pattern",
+      "RGNINDEX" : -1,
+      "w" : 60,
+      "y" : 20,
+      "x" : 1758,
+      "h" : 64,
+      "fileName" : "home.pat.png",
+      "PATINDEX" : -1
+    },
+    "enter.pat.png" : {
+      "y" : 990, 
+      "h" : 36,
+      "Type" : "pattern",
+      "fileName" : "enter.pat.png",
+      "PATINDEX" : -1,
+      "RGNINDEX" : -1,
+      "w" : 123,
+      "x" : 1592
+    },
+    "ContentType" : "pattern",
+    "co-opplay.pat.png" : {
+      "y" : 330,
+      "h" : 32,
+      "Type" : "pattern",
+      "fileName" : "co-opplay.pat.png",
+      "PATINDEX" : -1,
+      "RGNINDEX" : -1,
+      "w" : 180,
+      "x" : 160
+    },
+    "co-op.pat.png" : {
+      "y" : 186,
+      "h" : 33,
+      "Type" : "pattern",
+      "fileName" : "co-op.pat.png",
+      "PATINDEX" : -1,
+      "RGNINDEX" : -1,
+      "w" : 100,
+      "x" : 1573
+    }
+  },
+  "timeResume" : 1649205,
+  "tasks" : {
+    "Type" : "dictionary",
+    "home.pat.png" : {
+      "command" : "click",
+      "Type" : "task",
+      "RIGHT" : "enter.pat.png",
+      "pslr" : {
+        "Type" : "pattern",
+        "RGNINDEX" : -1,
+        "w" : 60,
+        "y" : 20,
+        "x" : 1758,
+        "h" : 64,
+        "fileName" : "home.pat.png",
+        "PATINDEX" : -1
+      }
+    },
+    "enter.pat.png" : {
+      "command" : "click",
+      "Type" : "task",
+      "RIGHT" : "waitCoop",
+      "pslr" : {
+        "y" : 1008,
+        "x" : 1653,
+        "Type" : "location"
+      }
+    },
+    "waitCoop" : {
+      "command" : "wait",
+      "Type" : "task",
+      "RIGHT" : "co-op.pat.png",
+      "timeOut" : 2000
+    },
+    "ContentType" : "task",
+    "co-opplay.pat.png" : {
+      "command" : "click",
+      "Type" : "task",
+      "RIGHT" : "home.pat.png",
+      "pslr" : {
+        "y" : 346,
+        "x" : 250,
+        "Type" : "location"
+      }
+    },
+    "co-op.pat.png" : {
+      "command" : "click",
+      "Type" : "task",
+      "RIGHT" : "co-opplay.pat.png",
+      "pslr" : {
+        "y" : 202,
+        "x" : 1623,
+        "Type" : "location"
+      }
+    }
+  },
+  "Type" : "gamemode",
+  "Name" : "story"
+}

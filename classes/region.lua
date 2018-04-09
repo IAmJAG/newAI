@@ -1,7 +1,7 @@
 local region = {}
 region.__index = region
 
-local gu = require('gameUtility')
+local ogu = require('gameUtility')
 
 function region.create()
 	local rgn = {}
@@ -12,7 +12,7 @@ function region.create()
 	rgn.w = scr:getX()
 	rgn.h = scr:getY()
 	
-	rgn = gu:addType('region', rgn)
+	rgn = ogu:addType('region', rgn)
 	return rgn
 end
 

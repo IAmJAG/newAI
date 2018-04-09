@@ -70,9 +70,7 @@ local function patternToString(pat)
 end
 
 local function print_error(err)
-	err = string.format("Error parsing JSON: %s", err)
-	Debug(err)
-    print(err)
+    print(string.format("Error parsing JSON: %s", err))
 end
 
 local function gen_error(err, index)
@@ -118,7 +116,7 @@ end
 
 local function next_token(str, index, forceStr)
     local len = string.len(str)
-		
+
     local frontIndex = index
     local backIndex = index
 
@@ -443,12 +441,6 @@ local function table_type(tbl)
 end
 
 local function encode_table(output, tbl, minify, tabIndex)
-	local typ = table_type(tbl)
-		if tbl['Type'] ~= nil then
-			trace('Enconding table type ' .. tbl.Type)
-		end
-		trace('encoding table ' .. typ)
-		
     if table_type(tbl) == table_types.array then
         output = encode_array(output, tbl, minify, tabIndex)
     else

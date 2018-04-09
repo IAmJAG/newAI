@@ -46,9 +46,9 @@ end
 function dictionary:getNext(obj)
 	obj = obj or nil
 	local ret = nil
-	for i, key in pairs(keys)
-		if self[keys[i]] == obj then
-			ret = self[keys[i+]]
+	for i, key in pairs(keys) do
+		if self[key] == obj then
+			ret = self[keys[i+1]]
 			break
 		end
 	end
@@ -56,15 +56,15 @@ function dictionary:getNext(obj)
 end
 
 function dictionary:add(key, obj)
-	if self.ContentType = nil or self.ContentType = '' then
+	if self.ContentType == nil or self.ContentType == '' then
 		Debug('Dictionary not initialized!')
 	else
 		obj = obj or require(self.ContentType).create()
 		if obj['Type'] == nil then
-			Debug('Invalid type!')
+			Debug('Invalid type! 1')
 		else
 			if obj.Type ~= self.ContentType then
-				Debug('Invalid type!')
+				Debug('Invalid type! 2')
 			else
 				self[key] = obj
 				keys[#keys+1] = key
@@ -75,7 +75,7 @@ end
 
 function dictionary:remove(key)
 	self[key] = nil
-	for i, k in pairs(keys)
+	for i, k in pairs(keys) do
 		if key == k then
 			table.remove(keys, i)
 			break

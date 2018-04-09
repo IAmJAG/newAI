@@ -6,24 +6,67 @@ _G.__addLogger = dofile(scrptPth .. 'classes/logger.lua')
 _G:__addLogger(scrptPth .. 'logs/' .. string.format("%s.log", os.date("%Y%m%d")))	
 
 setImagePath(scrptPth .. 'images')
-local gu = require('gameUtility').create()
-gu:ShowStatusBar()
-gu:Status('Create pattern list')
+local oGU = require('gameUtility').create()
+oGU:ShowStatusBar()
+oGU:Status('Create pattern list')
 
-local imgList = gu:scanDirectory(scriptPath() .. 'images', "png")
-local patList = {}
-local pat = require('pattern')
-for i, x in pairs(imgList) do
-	local xx = x:gsub(scriptPath() .. 'images/', '')
-	local p  = pat.create()
-	p:initialize(xx)
-	patList[#patList+1] = p
-	gu:Status(xx)
+
+local profile = {}
+
+function profile:click(pslr, to)
+	to = to or 0
+	pslr:click()
+	local tcks = oGU:ms() + to
+	while oGU:ms() <= tcks do
+	end
+	return true
 end
 
---patList = require("gameAgent").create()
-gu:saveJSON(patList, scriptPath() .. 'data/patterns.json')
+function profile.wait(pslr, to)
+	to = to or 500
+	local tcks = oGU:ms() + to
+	trace('wait for' .. to .. ' ms')
+	while oGU:ms() <= tcks do
+	end
+	return true
+end
 
--- while true 
-	-- wait(1)
--- end
+
+settrace(OFF)
+local opa = require('pattern')
+local olo = require('location')
+local otk = require('task')
+local mod = oGU:readJSON(oGU.scriptPath .. 'data/storyMode.json', 'gameMode')
+--settrace(ON)
+
+oGU:Status('Running bot')
+
+-- local tsk1 = otk.create('wait')
+-- -- local pat = opa.create('co-opplay.pat.png')
+-- -- tsk1.pslr = opa.create('waitCoop')
+-- tsk1.timeOut = 2000
+
+-- -- -- local tsk2= otk.create('click')
+-- -- -- pat = opa.create('co-opplay.pat.png')
+-- -- -- tsk2.pslr = oGU:patternToLocation(pat)
+
+-- mod:addTask('waitCoop', tsk1)
+-- -- mod:addTask('co-opplay.pat.png', tsk2, 'co-opplay.pat.png')
+
+-- oGU:saveJSON(mod, oGU.scriptPath .. 'data/storyMode.json')
+-- -- scriptExit()
+
+local key = mod:getEntryPoint()
+oGU:Status('Got first key ' .. key)
+local task = mod:getTask(key)
+trace(key)
+oGU:Status('Execute Task')
+while task ~= nil do
+	task = mod:getTask(task:execute(profile))
+end
+oGU:Status('Execute Task')
+
+oGU:Status('Saving mode...')
+--oGU:saveJSON(mod, oGU.scriptPath .. 'data/storyMode.json')
+
+wait(5)

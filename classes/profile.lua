@@ -6,13 +6,13 @@ local odi = require('dictionary')
 
 local currentMode = nil
 
-function profile.create()
+function profile.create(name)
 	local prof = {}
 	setmetatable(prof, profile)
 	
 	local scrPath	= scriptPath()
 	
-	prof.Name		= ''
+	prof.Name		= name or ''
 	prof.Modes	= odi.create('script')
 	
 	prof = ogu:addType('Profile', prof)

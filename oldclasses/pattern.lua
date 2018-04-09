@@ -1,7 +1,8 @@
 local pattern = {}
 pattern.__index = pattern
 
-local ogu = require('gameUtility')
+local gu = require('gameUtility')
+local 
 
 function pattern.create()
 	local pat = {}
@@ -14,7 +15,7 @@ function pattern.create()
 	pat.h = scr:getY()
 	pat.fileName 	= ''
 	
-	pat = ogu:addType('pattern', pat)
+	pat = gu:addType('pattern', pat)
 	return pat
 end
 

@@ -6,8 +6,6 @@ return function(self, oFile)
 	self.logger['OutFile']			= oFile
 	self.logger['OutToConsole']	= false
 	self.logger['logString']		= ''
-	self['OFF'] = 'OFF'
-	self['ON'] = 'ON'
 			
 	local LOGMODES = {
 			{CODE = 1, NAME = "trace", COLOR = "\27[34m", On = true}

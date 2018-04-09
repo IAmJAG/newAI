@@ -1,0 +1,8 @@
+[TRACE  19:31:04] "Pattern convert"
+[TRACE  19:31:05] "Location X = 1653, Location Y = 1008"
+[TRACE  19:31:05] "Creating entry image"
+[TRACE  19:31:05] "Get Region with x=1758, y=20, w=60, h=64"
+[TRACE  19:31:08] "Get Region with x=0, y=0, w=1920, h=1080"
+[TRACE  19:31:18] "enter.pat.png"
+[TRACE  19:31:18] "Executing click"
+[TRACE  19:31:18] "Type of pslr location"

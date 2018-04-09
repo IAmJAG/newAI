@@ -1,0 +1,33 @@
+{
+  "tasks" : {
+    "ContentType" : "task",
+    "home.pat.png" : {
+      "command" : "click",
+      "Type" : "task",
+      "timeout" : 5000,
+      "pslr" : {
+        "y" : 0,
+        "h" : 1080,
+        "Type" : "pattern",
+        "fileName" : "home.pat.png",
+        "w" : 1920,
+        "x" : 0
+      }
+    },
+    "Type" : "dictionary"
+  },
+  "patterns" : {
+    "ContentType" : "pattern",
+    "home.pat.png" : {
+      "y" : 20,
+      "h" : 64,
+      "Type" : "pattern",
+      "fileName" : "home.pat.png",
+      "w" : 60,
+      "x" : 1758
+    },
+    "Type" : "dictionary"
+  },
+  "Name" : "story",
+  "Type" : "gamemode"
+}

@@ -1,39 +1,51 @@
-local location = {}
-location.__index = location
+local xlocation = {}
+xlocation.__index = xlocation
 
 local gu = require('gameUtility')
 
-function location.create()
+function xlocation.create()
 	local loc = {}
-	setmetatable(loc, location)
+	setmetatable(loc, xlocation)
 	
 	loc.x = 0
 	loc.y = 0
+
+	loc.LOCINDEX = -1
 	
 	loc = gu:addType('location', loc)
 	return loc
 end
 
-function location:initialize(x, y)
+function xlocation:initialize(x, y)
 	self.x = x
 	self.y = y
 end
 
-function location:getLocation()
-	return Location(x, y)
+function xlocation:getLocation()
+	trace(string.format('Location x=%d, Location y=%d', self.x, self.y))
+	_G['LOCATIONS'] = _G['LOCATIONS'] or {}
+	
+	if self.LOCINDEX == -1 then
+		self.x = tonumber(self.x)
+		self.y = tonumber(self.y)
+		LOCATIONS[self.LOCINDEX] = Location(self.x, self.y)
+		trace('Intialize location')
+	end
+	return LOCATIONS[self.LOCINDEX]
 end
 
-function location:click()
+function xlocation:click()
 	local loc = self:getLocation()
+	trace('X of the loc ' .. loc:getX())
 	click(loc)
 end
 
-function location:getX()
+function xlocation:getX()
 	return self.x
 end
 
-function location:getY()
+function xlocation:getY()
 	return self.y
 end
 
-return location
+return xlocation
