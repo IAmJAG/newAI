@@ -1,14 +1,10 @@
-scrptPth = scriptPath()
-package.path = package.path .. ";" .. scrptPth .. "classes/?.lua"
+-- read Settings
+
 package.path = package.path .. ";" .. scrptPth .. "?.lua"
 
-_G.__addLogger = dofile(scrptPth .. 'classes/logger.lua')
-_G:__addLogger(scrptPth .. 'logs/' .. string.format("%s.log", os.date("%Y%m%d")))	
+require 'initialize'
 
 setImagePath(scrptPth .. 'images')
-local oGU = require('gameUtility').create()
-oGU:ShowStatusBar()
-oGU:Status('Create pattern list')
 
 
 local profile = {}

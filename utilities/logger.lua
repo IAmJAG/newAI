@@ -70,9 +70,7 @@ return function(self, oFile)
 		self['set'.. x.NAME] = function(status)
 			logger.LogModes[nameupper] = status
 		end
-	end
-	
-	
+	end	
 	
 	self.logger.__write = function(self, wmsg, nUpper, lnInfo)		
 		if self.OutFile then

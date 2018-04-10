@@ -2,7 +2,6 @@ local dictionary = {}
 dictionary.__index = dictionary 
 
 local ogu 	= require('gameUtility')
-local o  		= nil
 local keys	= {}
 
 function dictionary.create(typ)
@@ -10,22 +9,17 @@ function dictionary.create(typ)
 	local dict = {}
 	setmetatable(dict, dictionary)
 	
-	local scrPath	= scriptPath()
-	
 	dict.ContentType	= ''
 	
 	dict = ogu:addType('dictionary', dict)
 	
-	if typ then
-		dict:intialize(typ)
-	end
+	if typ ~= nil then dict:intialize(typ) end
 	
 	return dict
 end
 
 function dictionary:intialize(typ)
 	self.ContentType 	= typ
-	o = require(typ)
 end
 
 function dictionary:getObject(key)

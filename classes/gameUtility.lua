@@ -33,21 +33,6 @@ function gameUtility.create()
 			color = "white",
 			font_size = 20,
 	}
-
-	-- creating statusBar
-	local statusBar = UI:new(style)		
-	statusBar:add("status")
-	statusBar.status.position = "bottom=5%|left=5"
-
-	statusBar.status.width = "99%"
-	statusBar.status.height = "90%"
-
-	-- colors defined on uiconfig
-	statusBar.status.background = "gray_light"
-	statusBar.status.color = "white"
-	statusBar.status.font_size = "30%"
-	
-	_G.statusBar				= statusBar
 	
 	gu = gu:addType('gameUtility', gu)
 	return gu
@@ -81,16 +66,6 @@ function gameUtility:addType(name, o)
 	Types[name] = name:lower()
 	o.Type = Types[name]
 	return o
-end
-
-function gameUtility:ShowStatusBar()
-	_G.statusBar:showAll()
-end
-
-function gameUtility:Status(msg)
-	--self.statusBar.status:hide()
-	_G.statusBar.status.text = msg
-	_G.statusBar.status:show()
 end
 
 function gameUtility:ms()
