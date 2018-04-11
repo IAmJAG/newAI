@@ -23,17 +23,6 @@ function gameUtility.create()
 	
 	dofile(scrPath .. "UI.luac")
 
-	-- Status Bar
-	-- ========================================
-	local style = {
-			width = "100%",
-			height = "5%",
-			position = "bottom|left",
-			background = "black",
-			color = "white",
-			font_size = 20,
-	}
-	
 	gu = gu:addType('gameUtility', gu)
 	return gu
 end
@@ -63,8 +52,18 @@ function gameUtility:addType(name, o)
 		_G['Types'] = {}
 	end
 	
-	Types[name] = name:lower()
-	o.Type = Types[name]
+	local ltyp = name:lower()
+	local utyp = name:upper() 
+	
+	Types[ltyp] = ltyp
+	o.Type = Types[ltyp]
+	
+	_G['req' .. utyp] = function()
+		if _G[utyp] == nil then
+			_G[utyp] = __require(ltyp)
+		end
+		return _G[utyp]
+	end
 	return o
 end
 
