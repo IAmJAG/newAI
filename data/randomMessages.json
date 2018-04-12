@@ -1,8 +1,8 @@
-{
-	{'Tap your fingers continuously on the table.'},
-	{'Throw your phone.'},
-	{'Call google.'},
-	{'Ask for a refund'},
-	{'Pretend to be sleeping.'},
-	{'Go get a cup of coffe.'},
-}
+[
+  "Tap your fingers continuously on the table.",
+  "Throw your phone.",
+  "Call google.",
+  "Ask for a refund",
+  "Pretend to be sleeping.",
+  "Go get a cup of coffe."
+]

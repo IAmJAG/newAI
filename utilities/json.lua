@@ -242,7 +242,7 @@ local function parse_array(str, index)
             if next.__type == types.syntax then
                 if next.value == tokens.leftBracket then
                     value, index, err = parse_array(str, index)
-                elseif next.value == tokesn.leftBrace then
+                elseif next.value == tokens.leftBrace then
                     value, index, err = parse_object(str, index)
                 else
                     return nil, nil, gen_error("Unexpected symbol", index)

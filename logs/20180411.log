@@ -1,0 +1,5 @@
+[TRACE  12:31:57] "Require regular type gameutility"
+[TRACE  12:31:57] "Require regular type json"
+[TRACE  12:31:58] "creating game utility"
+[DEBUG  12:31:58] "Error parsing JSON: Unexpected symbol at index 2."
+[TRACE  12:31:58] "object please delete me"

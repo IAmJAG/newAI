@@ -1,11 +1,11 @@
 -- read Settings
 
+scrptPth = scriptPath()
 package.path = package.path .. ";" .. scrptPth .. "?.lua"
 
 require 'initialize'
 
 setImagePath(scrptPth .. 'images')
-
 
 local profile = {}
 
@@ -28,14 +28,18 @@ function profile.wait(pslr, to)
 end
 
 
-settrace(OFF)
+--settrace(OFF)
 local opa = require('pattern')
 local olo = require('location')
+local otk = require('task')
 local otk = require('task')
 local mod = oGU:readJSON(oGU.scriptPath .. 'data/storyMode.json', 'gameMode')
 --settrace(ON)
 
-oGU:Status('Running bot')
+Status('Running bot')
+wait(5)
+scriptExit()
+
 
 -- local tsk1 = otk.create('wait')
 -- -- local pat = opa.create('co-opplay.pat.png')

@@ -5,6 +5,7 @@ local json 						= require('json')
 local minifyJSONSave 	= false
 
 function gameUtility.create()
+	trace('creating game utility')
 	local gu = {}
 	setmetatable(gu, gameUtility)
 	
@@ -19,9 +20,7 @@ function gameUtility.create()
 	end
 	
 	_G.Types['Array'] 	= 'array'
-	_G.Types['Object']	= 'object'	
-	
-	dofile(scrPath .. "UI.luac")
+	_G.Types['Object']	= 'object'
 
 	gu = gu:addType('gameUtility', gu)
 	return gu

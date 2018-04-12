@@ -5,9 +5,13 @@ __require = require
 function require(moduleName)
 	local ltyp = moduleName:lower()
 	local utyp = moduleName:upper()
+	local req = nil
 	if _G['req' .. utyp] == nil then
-		return __require(ltyp)
+		trace('Require regular type ' .. moduleName) 
+		req = __require(ltyp)
 	else
-		return _G['req' .. utyp]()
+		trace('Require custom type ' .. moduleName)
+		req = _G['req' .. utyp]()
 	end
+	return req
 end
