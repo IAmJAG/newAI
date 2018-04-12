@@ -23,8 +23,10 @@ function taskMeta:execute(agent)
 		trace('assuming command is click')
 		agent[self.command] = 'click'
 	end
+	local ticks = oGU:ms()
 	trace('Executing ' .. self.command)
 	local result = agent[self.command](agent, self.pslr, self.timeOut)
+	Status('Executed ' .. self.command .. ' for ' .. oGU:ms() - ticks .. 'ms')
 	if result then
 		return self.RIGHT
 	else

@@ -38,3 +38,4 @@ end
 
 ShowStatusBar()
 randomStatus()
+wait(5)

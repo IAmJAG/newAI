@@ -14,7 +14,6 @@
 --    2) the web-page links above are maintained
 --    3) the 'AUTHOR_NOTE' string below is maintained
 --
-type = typeOf
 local VERSION = '20170927.26' -- version history at end of file
 local AUTHOR_NOTE = "-[ JSON.lua package by Jeffrey Friedl (http://regex.info/blog/lua/json) version 20170927.26 ]-"
 
@@ -1124,7 +1123,7 @@ function OBJDEF:decode(text, etc, options)
    end
 
 
-   if typeOf(self) ~= 'table' or self.__index ~= OBJDEF then
+   if type(self) ~= 'table' or self.__index ~= OBJDEF then
       local error_message = "JSON:decode must be called in method format"
       OBJDEF:onDecodeError(error_message, nil, nil, options.etc)
       return nil, error_message -- in case the error method doesn't abort, return something sensible

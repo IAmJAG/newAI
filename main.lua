@@ -9,6 +9,7 @@ setImagePath(scrptPth .. 'images')
 
 local profile = {}
 
+randomStatus()
 function profile:click(pslr, to)
 	to = to or 0
 	pslr:click()
@@ -18,6 +19,7 @@ function profile:click(pslr, to)
 	return true
 end
 
+randomStatus()
 function profile.wait(pslr, to)
 	to = to or 500
 	local tcks = oGU:ms() + to
@@ -27,19 +29,19 @@ function profile.wait(pslr, to)
 	return true
 end
 
+randomStatus()
+oGU = require('gameUtility').create()
 
 --settrace(OFF)
 local opa = require('pattern')
 local olo = require('location')
 local otk = require('task')
 local otk = require('task')
+randomStatus()
 local mod = oGU:readJSON(oGU.scriptPath .. 'data/storyMode.json', 'gameMode')
 --settrace(ON)
 
 Status('Running bot')
-wait(5)
-scriptExit()
-
 
 -- local tsk1 = otk.create('wait')
 -- -- local pat = opa.create('co-opplay.pat.png')
@@ -57,16 +59,16 @@ scriptExit()
 -- -- scriptExit()
 
 local key = mod:getEntryPoint()
-oGU:Status('Got first key ' .. key)
+Status('Got first key ' .. key)
 local task = mod:getTask(key)
 trace(key)
-oGU:Status('Execute Task')
+Status('Execute Task')
 while task ~= nil do
 	task = mod:getTask(task:execute(profile))
 end
-oGU:Status('Execute Task')
+Status('Execute Task')
 
-oGU:Status('Saving mode...')
+Status('NOt Saving mode...')
 --oGU:saveJSON(mod, oGU.scriptPath .. 'data/storyMode.json')
 
 wait(5)

@@ -1,7 +1,9 @@
 local gameUtility = {}
 gameUtility.__index = gameUtility
 
-local json 						= require('json')
+type = typeOf
+--local json 						= assert(loadfile(scriptPath() .. "utilities/json.lua"))()
+local json 						= assert(loadstring(httpGet('http://regex.info/code/JSON.lua')))()
 local minifyJSONSave 	= false
 
 function gameUtility.create()
@@ -75,7 +77,7 @@ function gameUtility:encodeJSON(obj, minify)
 end
 
 function gameUtility:decodeJSON(jsonStr, typ)
-	local dta = json.decode(jsonStr)
+	local dta = json:decode(jsonStr)
 	typ = typ or 'object'
 	trace(typ .. ' please delete me')
 	return self:convert(dta, typ)
